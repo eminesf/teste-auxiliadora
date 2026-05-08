@@ -2,6 +2,18 @@
 
 API REST para gerenciamento da esteira de contratos de aluguel da Auxiliadora Predial.
 
+---
+
+# 🏠 Rental Pipeline API
+
+> **API em produção e disponível para testes**
+>
+> 🟢 **[Acessar Swagger — Ambiente de Demonstração](https://teste-auxiliadora-production.up.railway.app/swagger/index.html)**
+>
+> ⚠️ O Swagger está habilitado em produção exclusivamente para fins de demonstração e avaliação técnica.
+
+---
+
 ## Sumário
 
 - [Sobre o Projeto](#sobre-o-projeto)
