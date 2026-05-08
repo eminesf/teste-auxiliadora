@@ -3,8 +3,10 @@ using RentalPipeline.Application.Interfaces.Repositories;
 using RentalPipeline.Application.UseCases.Clients;
 using RentalPipeline.Application.UseCases.Properties;
 using RentalPipeline.Application.UseCases.Proposals;
+using RentalPipeline.Application.Events;
 using RentalPipeline.Infrastructure.Data;
 using RentalPipeline.Infrastructure.Repositories;
+using RentalPipeline.Infrastructure.Events;
 using RentalPipeline.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +32,9 @@ builder.Services.AddScoped<GetProposalHistoryUseCase>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Event Publisher
+builder.Services.AddScoped<IEventPublisher, ConsoleEventPublisher>();
 
 // ── CORS (para o frontend vibecodado) ───────────────────────────────────────
 builder.Services.AddCors(options =>
