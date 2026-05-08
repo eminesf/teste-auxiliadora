@@ -1,0 +1,40 @@
+services:
+  api:
+    build: .
+    container_name: rental_pipeline_api
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=rental_pipeline;Username=postgres;Password=postgres
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - rental_network
+
+  db:
+    image: postgres:16-alpine
+    container_name: rental_pipeline_db
+    environment:
+      POSTGRES_DB: rental_pipeline
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - rental_network
+
+volumes:
+  postgres_data:
+
+networks:
+  rental_network:
+    driver: bridge
