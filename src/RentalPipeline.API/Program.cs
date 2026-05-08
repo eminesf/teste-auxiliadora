@@ -12,7 +12,6 @@ using RentalPipeline.API.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
 
 // ── Banco de dados ──────────────────────────────────────────────────────────
-// Tenta as variáveis na ordem: Railway DATABASE_URL → ConnectionStrings config
 var rawConnectionString =
     Environment.GetEnvironmentVariable("DATABASE_URL")
     ?? Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
