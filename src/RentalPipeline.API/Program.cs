@@ -72,11 +72,10 @@ using (var scope = app.Services.CreateScope())
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.MapControllers();
 app.Run();
