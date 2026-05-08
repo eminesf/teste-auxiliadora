@@ -12,8 +12,18 @@ using RentalPipeline.API.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
 
 // ── Banco de dados ──────────────────────────────────────────────────────────
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// Converte formato URL (Railway) para formato Npgsql se necessário
+if (connectionString != null && connectionString.StartsWith("postgresql://"))
+{
+    var uri = new Uri(connectionString);
+    var userInfo = uri.UserInfo.Split(':');
+    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+}
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString));
 
 // ── Repositórios ────────────────────────────────────────────────────────────
 builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
