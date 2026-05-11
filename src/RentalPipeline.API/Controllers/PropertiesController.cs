@@ -24,14 +24,14 @@ public class PropertiesController(
     {
         var property = await propertyRepository.GetByIdAsync(id);
         if (property is null) return NotFound();
-        return Ok(property);
+        return Ok(PropertyResponse.FromEntity(property));
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
         var properties = await propertyRepository.GetAllAsync();
-        return Ok(properties);
+        return Ok(properties.Select(PropertyResponse.FromEntity));
     }
 
     [HttpGet("owner/{ownerId:guid}")]
