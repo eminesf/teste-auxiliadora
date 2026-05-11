@@ -132,10 +132,11 @@ app.MapScalarApiReference(options =>
 {
     options.Title = "Rental Pipeline API";
     options.Theme = ScalarTheme.DeepSpace;
-    options.WithHttpBearerAuthentication(bearer =>
-    {
-        bearer.Token = "seu_token_jwt_aqui";
-    });
+    options.Servers =
+   [
+       new ScalarServer("https://endearing-upliftment-production-b672.up.railway.app", "Produção"),
+        new ScalarServer("http://localhost:5000", "Local")
+   ];
 });
 
 app.UseAuthentication();
