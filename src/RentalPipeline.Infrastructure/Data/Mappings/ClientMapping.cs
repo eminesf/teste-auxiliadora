@@ -33,5 +33,9 @@ public class ClientMapping : IEntityTypeConfiguration<Client>
         builder.Property(c => c.CreatedAt)
             .HasColumnName("created_at")
             .IsRequired();
+
+        builder.HasIndex(c => c.Document)
+            .IsUnique()
+            .HasDatabaseName("IX_clients_document_unique");
     }
 }

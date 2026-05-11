@@ -15,7 +15,10 @@ public class Client
         Id = Guid.NewGuid();
         Name = name;
         Email = email;
-        Document = document;
+        Document = CleanDocument(document);
         CreatedAt = DateTime.UtcNow;
     }
+
+    private static string CleanDocument(string document) =>
+        new string(document.Where(char.IsDigit).ToArray());
 }
