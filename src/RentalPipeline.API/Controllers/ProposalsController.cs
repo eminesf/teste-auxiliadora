@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentalPipeline.Application.DTOs.Requests;
 using RentalPipeline.Application.DTOs.Responses;
 using RentalPipeline.Application.Interfaces.Repositories;
 using RentalPipeline.Application.UseCases.Proposals;
+using RentalPipeline.Domain.Enums;
 
 namespace RentalPipeline.API.Controllers;
 
@@ -15,6 +17,7 @@ public class ProposalsController(
     IProposalRepository proposalRepository) : ControllerBase
 {
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateProposalRequest request)
     {
         var response = await createProposalUseCase.ExecuteAsync(request);
@@ -22,6 +25,7 @@ public class ProposalsController(
     }
 
     [HttpGet("{id:guid}")]
+    [Authorize]
     public async Task<IActionResult> GetById(Guid id)
     {
         var proposal = await proposalRepository.GetByIdAsync(id);
@@ -30,6 +34,7 @@ public class ProposalsController(
     }
 
     [HttpGet]
+    [Authorize(Roles = ClientRole.AdminMaster)]
     public async Task<IActionResult> GetAll()
     {
         var proposals = await proposalRepository.GetAllAsync();
@@ -37,6 +42,7 @@ public class ProposalsController(
     }
 
     [HttpPatch("{id:guid}/status")]
+    [Authorize]
     public async Task<IActionResult> Transition(Guid id, [FromBody] TransitionProposalRequest request)
     {
         var response = await transitionProposalUseCase.ExecuteAsync(id, request);
@@ -44,6 +50,7 @@ public class ProposalsController(
     }
 
     [HttpGet("{id:guid}/history")]
+    [Authorize]
     public async Task<IActionResult> GetHistory(Guid id)
     {
         var history = await getProposalHistoryUseCase.ExecuteAsync(id);

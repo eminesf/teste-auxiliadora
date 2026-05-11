@@ -7,7 +7,7 @@ public static class ProposalBuilder
 {
   public static (Proposal proposal, Property property) Build()
   {
-    var owner = new Client("Owner Silva", "owner@email.com", "111.111.111-11");
+    var owner = new Client("Owner Silva", "owner@email.com", "111.111.111-11", "senha123", "Owner");
     var property = new Property(
         owner.Id, "Rua das Flores", "123", "Centro", "Porto Alegre", "RS", 1500m);
 

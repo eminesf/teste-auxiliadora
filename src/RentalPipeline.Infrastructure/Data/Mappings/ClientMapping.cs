@@ -37,5 +37,18 @@ public class ClientMapping : IEntityTypeConfiguration<Client>
         builder.HasIndex(c => c.Document)
             .IsUnique()
             .HasDatabaseName("IX_clients_document_unique");
+
+        builder.Property(c => c.PasswordHash)
+            .HasColumnName("password_hash")
+            .IsRequired();
+
+        builder.Property(c => c.Role)
+            .HasColumnName("role")
+            .IsRequired()
+            .HasMaxLength(20);
+
+        builder.HasIndex(c => c.Email)
+            .IsUnique()
+            .HasDatabaseName("IX_clients_email_unique");
     }
 }

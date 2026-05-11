@@ -10,5 +10,7 @@ public interface IClientRepository
     Task<bool> DocumentExistsAsync(string document);
     Task<bool> HasPropertiesAsync(Guid clientId);
     Task<bool> HasActiveProposalsAsync(Guid clientId);
+    Task<Client?> GetByEmailAsync(string email);
+    Task<bool> EmailExistsAsync(string email);
     void Remove(Client client);
 }

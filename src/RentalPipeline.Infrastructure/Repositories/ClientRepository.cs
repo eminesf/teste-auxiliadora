@@ -22,6 +22,12 @@ public class ClientRepository(AppDbContext context) : IClientRepository
     public async Task<bool> HasPropertiesAsync(Guid clientId) =>
         await context.Properties.AnyAsync(p => p.OwnerId == clientId);
 
+    public async Task<Client?> GetByEmailAsync(string email) =>
+        await context.Clients.FirstOrDefaultAsync(c => c.Email == email);
+
+    public async Task<bool> EmailExistsAsync(string email) =>
+        await context.Clients.AnyAsync(c => c.Email == email);
+
     public async Task<bool> HasActiveProposalsAsync(Guid clientId) =>
         await context.Proposals.AnyAsync(p =>
             p.ClientId == clientId &&

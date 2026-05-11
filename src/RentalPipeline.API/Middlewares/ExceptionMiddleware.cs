@@ -23,6 +23,9 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
     {
         var (statusCode, message) = exception switch
         {
+            // 401 — não autenticado
+            UnauthorizedAccessException => (HttpStatusCode.Unauthorized, exception.Message),
+
             // 404 — recurso não encontrado
             KeyNotFoundException => (HttpStatusCode.NotFound, exception.Message),
 
