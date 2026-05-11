@@ -44,6 +44,8 @@ builder.Services.AddScoped<CreateClientUseCase>();
 builder.Services.AddScoped<CreateProposalUseCase>();
 builder.Services.AddScoped<TransitionProposalUseCase>();
 builder.Services.AddScoped<GetProposalHistoryUseCase>();
+builder.Services.AddScoped<DeleteClientUseCase>();
+
 
 // ── API ──────────────────────────────────────────────────────────────────────
 builder.Services.AddControllers();

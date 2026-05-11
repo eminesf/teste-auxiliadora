@@ -10,6 +10,7 @@ namespace RentalPipeline.API.Controllers;
 [Route("api/[controller]")]
 public class ClientsController(
     CreateClientUseCase createClientUseCase,
+    DeleteClientUseCase deleteClientUseCase,
     IClientRepository clientRepository) : ControllerBase
 {
     [HttpPost]
@@ -32,5 +33,12 @@ public class ClientsController(
     {
         var clients = await clientRepository.GetAllAsync();
         return Ok(clients.Select(ClientResponse.FromEntity));
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await deleteClientUseCase.ExecuteAsync(id);
+        return NoContent();
     }
 }

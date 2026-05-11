@@ -35,6 +35,9 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
             // 400 — payload inválido (enum desconhecido, etc)
             ArgumentException => (HttpStatusCode.BadRequest, exception.Message),
 
+            // 409 — conflito de negócio (cliente com vínculos)
+            InvalidOperationException => (HttpStatusCode.Conflict, exception.Message),
+
             // 500 — qualquer outro erro inesperado
             _ => (HttpStatusCode.InternalServerError, "Ocorreu um erro interno. Tente novamente.")
         };
