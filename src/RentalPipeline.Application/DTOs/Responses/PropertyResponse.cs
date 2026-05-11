@@ -4,7 +4,7 @@ namespace RentalPipeline.Application.DTOs.Responses;
 
 public record PropertyResponse(
     Guid Id,
-    ClientResponse Owner,
+    ClientPublicResponse Owner,
     string Street,
     string Number,
     string? Complement,
@@ -19,7 +19,7 @@ public record PropertyResponse(
 {
     public static PropertyResponse FromEntity(Property p) => new(
         p.Id,
-        ClientResponse.FromEntity(p.Owner),
+        ClientPublicResponse.FromEntity(p.Owner),
         p.Street,
         p.Number,
         p.Complement,
